@@ -3,12 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="mvpmaps.manoj.com.mvpwebsocketmaps.activities.HomeActivity">
+    tools:context="mvpmaps.manoj.com.mvpwebsocketmaps.activities.home.HomeActivity">
 
     <LinearLayout
         android:id="@+id/fragment"
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@android:color/darker_gray"
+        android:orientation="vertical">
     </LinearLayout>
+
 </RelativeLayout>

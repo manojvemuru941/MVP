@@ -17,8 +17,8 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
         buildConfigField "int", "LIMIT", "100"
-
-        buildConfigField "String", "BASEURL", "\"http://127.0.0.1:8080/\""
+        buildConfigField "String", "WSURL", "\"ws://192.168.1.71:8080/\""
+        buildConfigField "String", "BASEURL", "\"http://192.168.1.71:8080/\""
         buildConfigField "String", "LOGIN", "\"login\""
         buildConfigField "String", "LOGOUT", "\"logout\""
         buildConfigField "int", "CACHETIME", "432000" // 5days
@@ -48,8 +48,13 @@ dependencies {
     implementation 'io.reactivex:rxandroid:1.2.1'
     implementation 'io.reactivex:rxjava:1.1.6'
 
-    implementation 'com.google.dagger:dagger:2.11'
-    kapt 'com.google.dagger:dagger-compiler:2.11'
+    implementation "com.google.dagger:dagger:$rootProject.ext.daggerVersion"
+    implementation "com.google.dagger:dagger-android-support:$rootProject.ext.daggerVersion"
+    kapt "com.google.dagger:dagger-android-processor:$rootProject.ext.daggerVersion"
+    kapt "com.google.dagger:dagger-compiler:$rootProject.ext.daggerVersion"
+
     provided 'javax.annotation:jsr250-api:1.0'
     provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    implementation "org.java-websocket:Java-WebSocket:1.3.0"
 }

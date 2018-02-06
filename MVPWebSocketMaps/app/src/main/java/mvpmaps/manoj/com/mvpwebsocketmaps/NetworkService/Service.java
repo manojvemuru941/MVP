@@ -1,5 +1,6 @@
 package mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService;
 
+import dagger.Module;
 import mvpmaps.manoj.com.mvpwebsocketmaps.viewmodel.UserViewModel;
 import rx.Observable;
 import rx.Subscriber;
@@ -11,6 +12,7 @@ import rx.schedulers.Schedulers;
 /**
  * Created by ennur on 6/25/16.
  */
+@Module
 public class Service {
     private final HTTPNetworkService networkService;
 
@@ -21,6 +23,37 @@ public class Service {
     public Subscription userLogin(final GetCityListCallback callback) {
 
         return networkService.login()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends UserViewModel>>() {
+                    @Override
+                    public Observable<? extends UserViewModel> call(Throwable throwable) {
+                        return Observable.error(throwable);
+                    }
+                })
+                .subscribe(new Subscriber<UserViewModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        callback.onError(new NetworkError(e));
+
+                    }
+
+                    @Override
+                    public void onNext(UserViewModel response) {
+                        callback.onSuccess(response);
+
+                    }
+                });
+    }
+
+    public Subscription userLogout(final GetCityListCallback callback) {
+
+        return networkService.logout()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(new Func1<Throwable, Observable<? extends UserViewModel>>() {

@@ -20,7 +20,6 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /**
  * Created by ennur on 6/28/16.
  */
-@Module
 public class NetworkModule {
     File cacheFile;
 
@@ -28,9 +27,7 @@ public class NetworkModule {
         this.cacheFile = cacheFile;
     }
 
-    @Provides
-    @Singleton
-    Retrofit provideCall() {
+    private Retrofit provideCall() {
         Cache cache = null;
         try {
             cache = new Cache(cacheFile, 10 * 1024 * 1024);
@@ -72,19 +69,11 @@ public class NetworkModule {
                 .build();
     }
 
-    @Provides
-    @Singleton
-    @SuppressWarnings("unused")
-    public HTTPNetworkService providesNetworkService(
-             Retrofit retrofit) {
-        return retrofit.create(HTTPNetworkService.class);
-    }
-    @Provides
-    @Singleton
-    @SuppressWarnings("unused")
-    public Service providesService(
-            HTTPNetworkService networkService) {
-        return new Service(networkService);
+    private HTTPNetworkService providesNetworkService() {
+        return provideCall().create(HTTPNetworkService.class);
     }
 
+    public Service providesService() {
+        return new Service(providesNetworkService());
+    }
 }
