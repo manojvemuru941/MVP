@@ -12,16 +12,17 @@ import java.net.URISyntaxException
  * Created by priyamanoj on 2018-02-06.
  */
 @Module
-class WebSocket constructor(uri: URI) {
-    private var uri: URI? = null
+class WebSocket constructor(url: String) {
+    private var url: String? = null
 
     init {
-        this.uri = uri
+        this.url = url
     }
 
         fun connectWS(webSocketContract: WebSocketContract){
+            var uri:URI
             try {
-                uri = URI(BuildConfig.WSURL)
+                uri = URI(url)
             } catch (e: URISyntaxException) {
                 e.printStackTrace()
                 return

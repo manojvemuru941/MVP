@@ -12,7 +12,7 @@ import mvpmaps.manoj.com.mvpwebsocketmaps.dagger.FragmentScope
 abstract class HomeFragmentModule {
     @FragmentScope
     @Binds
-    abstract fun provideView(homeFragment: HomeFragment):HomeFragmentView
+    abstract fun provideView(homeFragment: HomeFragment):HomeFragmentContract.View
 
     @FragmentScope
     @Binds

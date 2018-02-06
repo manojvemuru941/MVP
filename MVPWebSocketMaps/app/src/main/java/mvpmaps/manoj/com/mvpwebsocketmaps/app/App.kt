@@ -5,7 +5,9 @@ import android.app.Application
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
+import mvpmaps.manoj.com.mvpwebsocketmaps.BuildConfig
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.NetworkModule
+import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.WebSocket
 import mvpmaps.manoj.com.mvpwebsocketmaps.dagger.DaggerAppComponent
 import java.io.File
 import javax.inject.Inject
@@ -22,7 +24,7 @@ class App : Application(), HasActivityInjector {
         super.onCreate()
         val cacheFile = File(cacheDir, "responses")
         val networkModule = NetworkModule(cacheFile);
-        DaggerAppComponent.builder().application(this).service(networkModule.providesService()).build().inject(this)
+        DaggerAppComponent.builder().application(this).service(networkModule.providesService()).webSocket(WebSocket(BuildConfig.WSURL)).build().inject(this)
     }
 
     override fun activityInjector(): AndroidInjector<Activity> = dispatchingAndroidInjector

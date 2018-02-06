@@ -27,36 +27,3 @@ class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 }
-/*
-    private fun loginView(needsTransition:Boolean) {
-        fragment.removeAllViews()
-
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val homeFragment = HomeFragment();
-
-        if(needsTransition) {
-            fragmentTransaction.add(fragment.id ,homeFragment, HomeFragment.TAG)
-        } else {
-            fragmentTransaction.add(fragment.id ,homeFragment, HomeFragment.TAG)
-        }
-
-        fragmentTransaction.commit()
-        fragment.bringToFront()
-    }
-
-    override fun loginSuccess() {
-        fragment.removeAllViews()
-        val fragmentManager = supportFragmentManager
-        val fragmentTransaction = fragmentManager.beginTransaction()
-        val mapViewFragment = MapViewFragment();
-        fragmentTransaction.add(fragment.id, mapViewFragment, MapViewFragment.TAG)
-        fragmentTransaction.commit()
-        fragment.bringToFront()
-    }
-
-    override fun logoutSuccess() {
-        loginView(true)
-    }
-*/
-

@@ -9,9 +9,9 @@ import javax.inject.Inject
 /**
  * Created by priyamanoj on 2018-02-05.
  */
-class HomeFragmentPresenter @Inject constructor(service: Service, homeView: HomeFragmentView) : HomeFragmentContract.HomePresenter {
+class HomeFragmentPresenter @Inject constructor(service: Service, homeView: HomeFragmentContract.View) : HomeFragmentContract.HomePresenter {
     private var service: Service? = null
-    private var view: HomeFragmentView? = null
+    private var view: HomeFragmentContract.View? = null
     private var subscriptions: CompositeSubscription? = null
 
     init {
