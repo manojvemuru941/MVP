@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import mvpmaps.manoj.com.mvpwebsocketmaps.activities.mapview.MapViewActivity
+import mvpmaps.manoj.com.mvpwebsocketmaps.activities.memberslist.MembersListActivity
 
 /**
  * Created by priyamanoj on 2018-02-05.
@@ -19,7 +20,7 @@ fun addFragmentToActivity(fragmentManager: FragmentManager, fragment: Fragment, 
 }
 
 fun newMapActivytIntent(context: Context) :Intent {
-    val intent = Intent(context, MapViewActivity::class.java)
+    val intent = Intent(context, MembersListActivity::class.java)
     val bundle = Bundle()
     intent.putExtras(bundle)
     return intent
