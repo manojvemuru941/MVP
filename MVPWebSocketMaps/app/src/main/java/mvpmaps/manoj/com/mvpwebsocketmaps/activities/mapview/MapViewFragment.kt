@@ -20,4 +20,10 @@ class MapViewFragment : SupportMapFragment(),MapViewContract.View {
         AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
+
+    override fun onResume() {
+        super.onResume()
+        getMapAsync(presenter)
+
+    }
 }

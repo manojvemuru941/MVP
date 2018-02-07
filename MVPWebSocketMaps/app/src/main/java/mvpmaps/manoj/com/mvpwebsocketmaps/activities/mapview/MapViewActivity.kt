@@ -26,13 +26,5 @@ class MapViewActivity : AppCompatActivity(), HasSupportFragmentInjector {
         addFragmentToActivity(supportFragmentManager, MapViewFragment(), fragment_map.id)
     }
 
-    override fun onStart() {
-        super.onStart()
-    }
-
-    override fun onResume() {
-        super.onResume()
-    }
-
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector
 }
