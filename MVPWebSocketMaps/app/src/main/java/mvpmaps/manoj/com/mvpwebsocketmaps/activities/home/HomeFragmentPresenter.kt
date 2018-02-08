@@ -2,7 +2,7 @@ package mvpmaps.manoj.com.mvpwebsocketmaps.activities.home
 
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.NetworkError
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.Service
-import mvpmaps.manoj.com.mvpwebsocketmaps.viewmodel.UserViewModel
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.UserModel
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 
@@ -23,7 +23,7 @@ class HomeFragmentPresenter @Inject constructor(service: Service, homeView: Home
     override fun login() {
 
         val subscription  = service?.userLogin(object :Service.GetCityListCallback {
-            override fun onSuccess(response: UserViewModel) {
+            override fun onSuccess(response: UserModel) {
                 view?.removeWait()
                 view?.success(response)
             }
@@ -39,7 +39,7 @@ class HomeFragmentPresenter @Inject constructor(service: Service, homeView: Home
     override fun logout() {
 
         val subscription  = service?.userLogout(object :Service.GetCityListCallback {
-            override fun onSuccess(cityListResponse: UserViewModel) {
+            override fun onSuccess(cityListResponse: UserModel) {
                 view?.removeWait()
                 view?.success(cityListResponse)
             }

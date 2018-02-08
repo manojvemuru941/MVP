@@ -41,7 +41,7 @@ class MembersListFragment : Fragment(), MembersListContract.View {
                 container, false)
         val mLayoutManager = LinearLayoutManager(context)
         view.member_list_recycler.layoutManager = mLayoutManager
-//        view.member_list_recycler.itemAnimator = DefaultItemAnimator()
+        view.member_list_recycler.itemAnimator = DefaultItemAnimator()
         view.member_list_recycler.adapter = presenter.getListAdapter()
         return view;
     }

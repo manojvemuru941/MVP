@@ -1,7 +1,7 @@
 package mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService;
 
 import dagger.Module;
-import mvpmaps.manoj.com.mvpwebsocketmaps.viewmodel.UserViewModel;
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.UserModel;
 import rx.Observable;
 import rx.Subscriber;
 import rx.Subscription;
@@ -25,13 +25,13 @@ public class Service {
         return networkService.login()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext(new Func1<Throwable, Observable<? extends UserViewModel>>() {
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends UserModel>>() {
                     @Override
-                    public Observable<? extends UserViewModel> call(Throwable throwable) {
+                    public Observable<? extends UserModel> call(Throwable throwable) {
                         return Observable.error(throwable);
                     }
                 })
-                .subscribe(new Subscriber<UserViewModel>() {
+                .subscribe(new Subscriber<UserModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -44,7 +44,7 @@ public class Service {
                     }
 
                     @Override
-                    public void onNext(UserViewModel response) {
+                    public void onNext(UserModel response) {
                         callback.onSuccess(response);
 
                     }
@@ -56,13 +56,13 @@ public class Service {
         return networkService.logout()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .onErrorResumeNext(new Func1<Throwable, Observable<? extends UserViewModel>>() {
+                .onErrorResumeNext(new Func1<Throwable, Observable<? extends UserModel>>() {
                     @Override
-                    public Observable<? extends UserViewModel> call(Throwable throwable) {
+                    public Observable<? extends UserModel> call(Throwable throwable) {
                         return Observable.error(throwable);
                     }
                 })
-                .subscribe(new Subscriber<UserViewModel>() {
+                .subscribe(new Subscriber<UserModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -75,7 +75,7 @@ public class Service {
                     }
 
                     @Override
-                    public void onNext(UserViewModel response) {
+                    public void onNext(UserModel response) {
                         callback.onSuccess(response);
 
                     }
@@ -83,7 +83,7 @@ public class Service {
     }
 
     public interface GetCityListCallback{
-        void onSuccess(UserViewModel response);
+        void onSuccess(UserModel response);
 
         void onError(NetworkError networkError);
     }

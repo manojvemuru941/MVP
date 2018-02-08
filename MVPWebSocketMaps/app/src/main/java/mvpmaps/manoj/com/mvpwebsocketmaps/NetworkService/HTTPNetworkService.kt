@@ -3,7 +3,7 @@ package mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService
 import mvpmaps.manoj.com.mvpwebsocketmaps.BuildConfig
 import retrofit2.http.POST
 import rx.Observable
-import mvpmaps.manoj.com.mvpwebsocketmaps.viewmodel.UserViewModel
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.UserModel
 import retrofit2.http.DELETE
 
 /**
@@ -12,8 +12,8 @@ import retrofit2.http.DELETE
 public interface HTTPNetworkService {
 
     @POST(BuildConfig.LOGIN)
-     fun login(): Observable<UserViewModel>
+     fun login(): Observable<UserModel>
 
     @DELETE(BuildConfig.LOGOUT)
-    fun logout(): Observable<UserViewModel>
+    fun logout(): Observable<UserModel>
 }

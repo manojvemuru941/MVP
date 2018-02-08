@@ -1,0 +1,49 @@
+{
+  "family":{
+    "id":"0102020",
+    "name":"priyamanoj",
+    "membersCount":5,
+    "members":[
+      {
+        "id":"0102020222",
+        "name":"Rock",
+        "lat":"49.210371",
+        "long":"-123.117294",
+        "desc":"Rock or stone is a natural substance",
+        "image":"rock.png"
+      },
+      {
+        "id":"01020202221",
+        "name":"Tiger",
+        "lat":"49.226711",
+        "long":"-122.998221",
+        "desc":"The tiger is the largest cat species  ",
+        "image":"tiger.png"
+      },
+      {
+        "id":"01020202222",
+        "name":"Lion",
+        "lat":"49.279702",
+        "long":"-123.115808",
+        "desc":"Male lions are easily recognized by their manes",
+        "image":"lion.png"
+      },
+      {
+        "id":"01020202223",
+        "name":"Cheetha",
+        "lat":"49.286360",
+        "long":"-123.142665",
+        "desc":"Cheetahs are active mainly during the day",
+        "image":"cheetha.png"
+      },
+      {
+        "id":"01020202224",
+        "name":"Deer",
+        "lat":"49.274567",
+        "long":"-123.145532",
+        "desc":"Deer are the ruminant mammals forming the family Cervidae",
+        "image":"deer.png"
+      }
+    ]
+  }
+}
