@@ -3,7 +3,7 @@
 This Project is intended to showcase my skills regarding design and implementation using **MVP design pattern** in Android App Development
 
 # What does this application do
-This appliaction connects to a remote backend server using RESTFul services, once the login request is sucess it uses WebSockets to backend 
+This appliaction connects to a remote backend server using RESTFul services, once the login request is sucess, applicaiton uses WebSockets to connect backend 
 and receives list of family members with thie locations. On click of a member takes to map view and drops a pin at member location.
 
 # Whats implemented and how
