@@ -16,6 +16,10 @@ import javax.inject.Inject
  * Created by priyamanoj on 2018-02-07.
  */
 class MembersListActivity : AppCompatActivity(), HasSupportFragmentInjector {
+    companion object {
+        var TAG = MembersListActivity::class.java.name
+    }
+
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 

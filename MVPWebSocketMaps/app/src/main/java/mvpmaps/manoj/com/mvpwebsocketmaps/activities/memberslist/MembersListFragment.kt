@@ -25,7 +25,7 @@ import android.support.v7.widget.DefaultItemAnimator
 class MembersListFragment : Fragment(), MembersListContract.View {
 
     companion object {
-        var TAG = "MembersListFragment"
+        var TAG = MembersListFragment::class.java.name
     }
 
     @Inject
@@ -43,7 +43,9 @@ class MembersListFragment : Fragment(), MembersListContract.View {
         view.member_list_recycler.layoutManager = mLayoutManager
         view.member_list_recycler.itemAnimator = DefaultItemAnimator()
         view.member_list_recycler.adapter = presenter.getListAdapter()
+        (view.member_list_recycler.adapter as MemberListAdapter).getPositionClicks().subscribe {
+            presenter.onItemClickListner(it)
+        }
         return view;
     }
-
 }

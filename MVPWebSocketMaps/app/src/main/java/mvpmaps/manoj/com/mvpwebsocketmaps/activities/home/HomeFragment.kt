@@ -24,7 +24,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment(),View.OnClickListener, HomeFragmentContract.View {
 
     companion object {
-        var TAG = "HomeFragment"
+        var TAG = HomeFragment::class.java.name
     }
 
     @Inject

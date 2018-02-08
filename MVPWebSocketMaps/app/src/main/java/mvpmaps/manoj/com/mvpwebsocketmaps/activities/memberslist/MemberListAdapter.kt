@@ -7,6 +7,8 @@ import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.member_item.view.*
 import mvpmaps.manoj.com.mvpwebsocketmaps.R
+import rx.Observable
+import rx.subjects.PublishSubject
 
 
 /**
@@ -15,6 +17,7 @@ import mvpmaps.manoj.com.mvpwebsocketmaps.R
 class MemberListAdapter constructor(membersList:ArrayList<MemberModel>) : RecyclerView.Adapter<MemberListAdapter.MemberViewHolder>() {
     private var membersList:ArrayList<MemberModel>? = null
 
+    private val onClickSubject = PublishSubject.create<MemberModel>()
     init {
         this.membersList = membersList;
     }
@@ -32,8 +35,14 @@ class MemberListAdapter constructor(membersList:ArrayList<MemberModel>) : Recycl
         holder?.itemView?.member_name?.text = memberModel.name
         holder?.itemView?.member_desc?.text = memberModel.desc
         holder?.itemView?.imageView?.setImageBitmap(memberModel.bitmap)
+        holder?.itemView?.setOnClickListener({
+            onClickSubject.onNext(membersList!![position])
+        })
     }
 
+    fun getPositionClicks(): Observable<MemberModel> {
+        return onClickSubject.asObservable()
+    }
 
     inner class MemberViewHolder(view: View) : RecyclerView.ViewHolder(view)
 }

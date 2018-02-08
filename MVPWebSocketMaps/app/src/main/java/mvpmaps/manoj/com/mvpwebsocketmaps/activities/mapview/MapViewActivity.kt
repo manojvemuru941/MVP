@@ -10,12 +10,17 @@ import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_map.*
 import mvpmaps.manoj.com.mvpwebsocketmaps.R
 import mvpmaps.manoj.com.mvpwebsocketmaps.addFragmentToActivity
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import javax.inject.Inject
 
 /**
  * Created by priyamanoj on 2018-02-06.
  */
 class MapViewActivity : AppCompatActivity(), HasSupportFragmentInjector {
+    companion object {
+        var TAG = MapViewActivity::class.java.name
+    }
+
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 
@@ -23,7 +28,15 @@ class MapViewActivity : AppCompatActivity(), HasSupportFragmentInjector {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
-        addFragmentToActivity(supportFragmentManager, MapViewFragment(), fragment_map.id)
+
+        var model = intent.getParcelableExtra(TAG) as MemberModel
+        var mapViewFragment = MapViewFragment()
+
+        var bundle = Bundle()
+        bundle.putParcelable(MapViewFragment.TAG, model)
+        mapViewFragment.arguments = bundle
+
+        addFragmentToActivity(supportFragmentManager, mapViewFragment, fragment_map.id)
     }
 
     override fun supportFragmentInjector(): AndroidInjector<Fragment> = dispatchingAndroidInjector

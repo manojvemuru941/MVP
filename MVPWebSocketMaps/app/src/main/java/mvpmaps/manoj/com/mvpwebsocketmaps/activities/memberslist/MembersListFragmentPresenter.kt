@@ -4,13 +4,10 @@ import android.app.Application
 import android.content.Context
 import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import javax.inject.Inject
-import org.json.JSONObject
-import java.io.IOException
-import android.graphics.BitmapFactory
-import com.google.gson.GsonBuilder
-import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
-import java.io.InputStream
-import java.nio.charset.Charset
+import android.os.Bundle
+import mvpmaps.manoj.com.mvpwebsocketmaps.activities.mapview.MapViewActivity
+import mvpmaps.manoj.com.mvpwebsocketmaps.loadDummyData
+import mvpmaps.manoj.com.mvpwebsocketmaps.newMapActivytIntent
 
 
 /**
@@ -25,7 +22,7 @@ class MembersListFragmentPresenter @Inject constructor(context: Application) :Me
     }
     override fun getMembersList(): ArrayList<MemberModel> {
 
-        return  loadDummyData()
+        return  loadDummyData(context?.applicationContext!!)
     }
 
     override fun getListAdapter(): MemberListAdapter {
@@ -33,35 +30,10 @@ class MembersListFragmentPresenter @Inject constructor(context: Application) :Me
         return adapter as MemberListAdapter
     }
 
-    fun loadJSONFromAsset(): String? {
-        var json: String? = null
-        try {
-            val file = context!!.applicationContext.assets.open("members.json")
-            val size = file.available()
-            val buffer = ByteArray(size)
-            file.read(buffer)
-            file.close()
-            json = String(buffer, Charset.forName("UTF-8"))
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return null
-        }
-
-        return json
-    }
-
-    private fun loadDummyData(): ArrayList<MemberModel> {
-        val data:String? = loadJSONFromAsset()
-        val jsonObject:JSONObject = JSONObject(data).getJSONObject("family")
-        val gson = GsonBuilder().create()
-        val familyModel:FamilyModel = gson.fromJson(jsonObject.toString(), FamilyModel::class.java)
-        familyModel.members?.forEach {
-            var imageInput:InputStream = context?.assets!!.open("member-images/"+it.image)
-            it.bitmap = BitmapFactory.decodeStream(imageInput)
-        }
-        return when(familyModel.membersCount!! > 0){
-            true -> familyModel.members as ArrayList<MemberModel>
-            false -> ArrayList()
-        }
+    override fun onItemClickListner(model: MemberModel) {
+        model.bitmap = null
+        var bundle = Bundle()
+        bundle.putParcelable(MapViewActivity.TAG, model)
+        newMapActivytIntent(context?.applicationContext!!, MapViewActivity::class.java, bundle)
     }
 }

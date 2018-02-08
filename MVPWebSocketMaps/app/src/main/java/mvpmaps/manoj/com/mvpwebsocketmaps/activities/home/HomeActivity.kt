@@ -14,6 +14,10 @@ import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), HasSupportFragmentInjector {
 
+    companion object {
+        var TAG = HomeActivity::class.java.name
+    }
+
     @Inject
     lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
 

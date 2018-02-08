@@ -11,5 +11,6 @@ interface MembersListContract {
     interface Presenter {
         fun getMembersList():ArrayList<MemberModel>
         fun getListAdapter():MemberListAdapter
+        fun onItemClickListner(model: MemberModel)
     }
 }

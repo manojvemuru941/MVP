@@ -17,6 +17,7 @@ import io.reactivex.Observable
 import io.reactivex.ObservableOnSubscribe
 import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.Subject
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import rx.subjects.PublishSubject
 
 
@@ -30,6 +31,7 @@ class MapViewFragmentPresenter @Inject constructor(webSocket: WebSocket, mapView
     private var subscriptions: CompositeSubscription? = null
     private var context:Context
     private var mapSubject: Subject<GoogleMap>? = null
+    private var memberModel:MemberModel? = null
 
     init {
         this.webSocketService = webSocket;
@@ -45,16 +47,15 @@ class MapViewFragmentPresenter @Inject constructor(webSocket: WebSocket, mapView
             googleMap.uiSettings.isZoomControlsEnabled = true
             googleMap.uiSettings.isCompassEnabled = true
 
-            val position = LatLng(49.215761, -123.097818)
+            val position = LatLng(memberModel?.lat!!, memberModel?.long!!)
 
-            val position2 = LatLng(51.215761, -123.097818)
 
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position,15.0f));
 
-            googleMap.addMarker(MarkerOptions()
-                    .position(position))
-            googleMap.addMarker(MarkerOptions()
-                    .position(position2))
+            var options = MarkerOptions()
+            options.title(memberModel?.name)
+
+            googleMap.addMarker(MarkerOptions().position(position))
 
             // Zoom in, animating the camera.
             googleMap.animateCamera(CameraUpdateFactory.zoomIn());
@@ -64,13 +65,7 @@ class MapViewFragmentPresenter @Inject constructor(webSocket: WebSocket, mapView
         }
     }
 
-    fun addMarker(location: Location) {
-        mapSubject?.subscribe({ googleMap ->
-            val position = LatLng(0.0, 0.0)
-            googleMap.addMarker(MarkerOptions()
-                    .position(position))
-            googleMap.moveCamera(CameraUpdateFactory.newLatLng(position))
-        })
+    override fun setMemberLocation(memberModel: MemberModel) {
+        this.memberModel = memberModel
     }
-
 }
