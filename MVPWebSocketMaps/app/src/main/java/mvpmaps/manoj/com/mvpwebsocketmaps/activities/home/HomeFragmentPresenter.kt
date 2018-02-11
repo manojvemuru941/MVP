@@ -2,7 +2,6 @@ package mvpmaps.manoj.com.mvpwebsocketmaps.activities.home
 
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.NetworkError
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.Service
-import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.WebSocket
 import mvpmaps.manoj.com.mvpwebsocketmaps.model.UserModel
 import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
@@ -15,8 +14,6 @@ class HomeFragmentPresenter @Inject constructor(service: Service, homeView: Home
     private var view: HomeFragmentContract.View? = null
     private var subscriptions: CompositeSubscription? = null
 
-//    @Inject
-//    lateinit var webSocket:WebSocket
     init {
         this.service = service;
         this.view = homeView;
@@ -29,7 +26,6 @@ class HomeFragmentPresenter @Inject constructor(service: Service, homeView: Home
             override fun onSuccess(response: UserModel) {
                 view?.removeWait()
                 view?.success(response)
-//                webSocket.connectWS()
             }
                 override fun onError(networkError: NetworkError) {
                 view?.removeWait()

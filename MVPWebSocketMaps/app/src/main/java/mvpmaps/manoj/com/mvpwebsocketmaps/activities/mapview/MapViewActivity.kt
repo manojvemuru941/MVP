@@ -9,10 +9,7 @@ import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_map.*
 import mvpmaps.manoj.com.mvpwebsocketmaps.R
-import mvpmaps.manoj.com.mvpwebsocketmaps.TAG_FAMILY
 import mvpmaps.manoj.com.mvpwebsocketmaps.addFragmentToActivity
-import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
-import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import javax.inject.Inject
 
 /**
@@ -32,12 +29,10 @@ class MapViewActivity : AppCompatActivity(), HasSupportFragmentInjector {
         setContentView(R.layout.activity_map)
 
         var id = intent.getStringExtra(TAG) as String
-//        var familyModel:FamilyModel = intent.getParcelableExtra<FamilyModel>(TAG_FAMILY)
         var mapViewFragment = MapViewFragment()
 
         var bundle = Bundle()
         bundle.putString(MapViewFragment.TAG, id)
-//        bundle.putParcelable(TAG_FAMILY, familyModel)
         mapViewFragment.arguments = bundle
 
         addFragmentToActivity(supportFragmentManager, mapViewFragment, fragment_map.id)

@@ -8,9 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.gms.maps.SupportMapFragment
 import dagger.android.support.AndroidSupportInjection
-import mvpmaps.manoj.com.mvpwebsocketmaps.TAG_FAMILY
-import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
-import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import javax.inject.Inject
 
 /**

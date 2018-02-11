@@ -1,6 +1,5 @@
 package mvpmaps.manoj.com.mvpwebsocketmaps.activities.mapview
 
-import android.content.Context
 import dagger.Binds
 import dagger.Module
 import mvpmaps.manoj.com.mvpwebsocketmaps.dagger.FragmentScope

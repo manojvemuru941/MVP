@@ -8,14 +8,11 @@ import android.support.v4.content.ContextCompat
 import android.view.View
 import com.google.android.gms.maps.GoogleMap
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.WebSocket
-import rx.subscriptions.CompositeSubscription
 import javax.inject.Inject
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.LatLng
-import io.reactivex.subjects.BehaviorSubject
-import io.reactivex.subjects.Subject
 import mvpmaps.manoj.com.mvpwebsocketmaps.app.FamilyLocatorMVP
 import mvpmaps.manoj.com.mvpwebsocketmaps.loadBitmap
 import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
@@ -26,8 +23,8 @@ import rx.schedulers.Schedulers
 
 
 /**
- * Created by priyamanoj on 2018-02-06.
- */
+* Created by Manoj Vemuru on 2018-02-06.
+*/
 class MapViewFragmentPresenter
 @Inject constructor(webSocket: WebSocket, mapViewFragment: MapViewContract.View,
                     context: Application) : MapViewContract.Presenter {
@@ -37,11 +34,11 @@ class MapViewFragmentPresenter
     private var context:Context
     private var memberModel:MemberModel? = null
     private var familyModel:FamilyModel? = null
-    private var memberLocationUpdateSubscription:Subscription? = null;
+    private var memberLocationUpdateSubscription:Subscription? = null
 
     init {
-        this.webSocketService = webSocket;
-        this.view = mapViewFragment;
+        this.webSocketService = webSocket
+        this.view = mapViewFragment
         this.context = context
         this.familyModel = FamilyLocatorMVP.instance.familyModel
     }
@@ -65,7 +62,7 @@ class MapViewFragmentPresenter
     }
 
     private fun setMapLocation(memberModel: MemberModel, googleMap: GoogleMap) {
-        val position = LatLng(memberModel?.lat!!, memberModel?.long!!)
+        val position = LatLng(memberModel.lat!!, memberModel.long!!)
 
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(position,15.0f));
