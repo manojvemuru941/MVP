@@ -2,14 +2,16 @@ package mvpmaps.manoj.com.mvpwebsocketmaps
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import com.google.gson.GsonBuilder
 import mvpmaps.manoj.com.mvpwebsocketmaps.activities.mapview.MapViewActivity
-import mvpmaps.manoj.com.mvpwebsocketmaps.activities.memberslist.MembersListActivity
 import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
 import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import org.json.JSONObject
@@ -56,11 +58,25 @@ fun loadDummyData(context: Context): ArrayList<MemberModel> {
     val gson = GsonBuilder().create()
     val familyModel: FamilyModel = gson.fromJson(jsonObject.toString(), FamilyModel::class.java)
     familyModel.members?.forEach {
-        var imageInput: InputStream = context?.assets!!.open("member-images/"+it.image)
-        it.bitmap = BitmapFactory.decodeStream(imageInput)
+        it.bitmap = loadBitmap(context, it.image.toString())
     }
     return when(familyModel.membersCount!! > 0){
         true -> familyModel.members as ArrayList<MemberModel>
         false -> ArrayList()
     }
 }
+
+fun loadBitmap(context: Context, name:String) : Bitmap {
+    var imageInput:InputStream = context?.assets!!.open("member-images/"+name)
+    return BitmapFactory.decodeStream(imageInput)
+}
+
+inline fun <reified T : Parcelable> createParcel(
+        crossinline createFromParcel: (Parcel) -> T?): Parcelable.Creator<T> =
+        object : Parcelable.Creator<T> {
+            override fun createFromParcel(source: Parcel): T? = createFromParcel(source)
+            override fun newArray(size: Int): Array<out T?> = newArray(size)
+        }
+
+var TAG_FAMILY = "FAMILY_MODEL"
+

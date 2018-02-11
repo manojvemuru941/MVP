@@ -1,15 +1,16 @@
 package mvpmaps.manoj.com.mvpwebsocketmaps.model
 
 import android.graphics.Bitmap
-import android.os.Parcel
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
+import rx.Observable
+import rx.subjects.PublishSubject
 
 /**
  * Created by priyamanoj on 2018-02-07.
  */
-class MemberModel() : Parcelable {
+class MemberModel : DataUpdateModel.MemberDataUpdateModel  {
+
+    private val memberModelUpdateSubject: PublishSubject<MemberModel> = PublishSubject.create()
 
     @SerializedName("id")
     var id:String? = null
@@ -32,37 +33,23 @@ class MemberModel() : Parcelable {
     @SerializedName("bitmap")
     var bitmap:Bitmap? = null;
 
-    constructor(parcel: Parcel) : this() {
-        id = parcel.readString()
-        name = parcel.readString()
-        lat = parcel.readValue(Double::class.java.classLoader) as? Double
-        long = parcel.readValue(Double::class.java.classLoader) as? Double
-        desc = parcel.readString()
-        image = parcel.readString()
-        bitmap = parcel.readParcelable(Bitmap::class.java.classLoader)
+    override fun observeUpdateMemberModel(): Observable<MemberModel> {
+        return memberModelUpdateSubject.asObservable()
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(name)
-        parcel.writeValue(lat)
-        parcel.writeValue(long)
-        parcel.writeString(desc)
-        parcel.writeString(image)
-        parcel.writeParcelable(bitmap, flags)
-    }
+    fun updateMemberData(memberModel:MemberModel) {
 
-    override fun describeContents(): Int {
-        return 0
-    }
+        this.id = memberModel.id
+        this.name = memberModel.name
+        this.desc = memberModel.desc
+        this.lat = memberModel.lat
+        this.long = memberModel.long
+        this.image = memberModel.image
+        this.bitmap = memberModel.bitmap
 
-    companion object CREATOR : Parcelable.Creator<MemberModel> {
-        override fun createFromParcel(parcel: Parcel): MemberModel {
-            return MemberModel(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MemberModel?> {
-            return arrayOfNulls(size)
-        }
+        /*
+            this update the list of observers for the data update
+         */
+        memberModelUpdateSubject.onNext(memberModel)
     }
 }

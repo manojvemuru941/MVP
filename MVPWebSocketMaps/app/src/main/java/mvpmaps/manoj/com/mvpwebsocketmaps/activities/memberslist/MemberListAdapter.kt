@@ -7,6 +7,7 @@ import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import android.view.LayoutInflater
 import kotlinx.android.synthetic.main.member_item.view.*
 import mvpmaps.manoj.com.mvpwebsocketmaps.R
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
 import rx.Observable
 import rx.subjects.PublishSubject
 
@@ -14,12 +15,13 @@ import rx.subjects.PublishSubject
 /**
  * Created by priyamanoj on 2018-02-07.
  */
-class MemberListAdapter constructor(membersList:ArrayList<MemberModel>) : RecyclerView.Adapter<MemberListAdapter.MemberViewHolder>() {
-    private var membersList:ArrayList<MemberModel>? = null
-
+class MemberListAdapter constructor(familyModel: FamilyModel) : RecyclerView.Adapter<MemberListAdapter.MemberViewHolder>() {
+    private var membersList:ArrayList<MemberModel>? = ArrayList()
     private val onClickSubject = PublishSubject.create<MemberModel>()
+    private var familyModel: FamilyModel? = null
+
     init {
-        this.membersList = membersList;
+        this.familyModel = familyModel
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MemberListAdapter.MemberViewHolder {
@@ -28,7 +30,10 @@ class MemberListAdapter constructor(membersList:ArrayList<MemberModel>) : Recycl
         return MemberViewHolder(itemView)
     }
 
-    override fun getItemCount(): Int = membersList?.size!!
+    override fun getItemCount(): Int = when(membersList != null && membersList?.size!! > 0) {
+        true -> membersList?.size!!
+        false -> 0
+    }
 
     override fun onBindViewHolder(holder: MemberViewHolder?, position: Int) {
         var memberModel = membersList!![position]
@@ -42,6 +47,14 @@ class MemberListAdapter constructor(membersList:ArrayList<MemberModel>) : Recycl
 
     fun getPositionClicks(): Observable<MemberModel> {
         return onClickSubject.asObservable()
+    }
+
+    fun updateMembers(memberArrayList: ArrayList<MemberModel>) {
+        when(this.membersList != null) {
+            true -> this.membersList?.clear()
+            false -> this.membersList = ArrayList()
+        }
+        this.membersList?.addAll(memberArrayList)
     }
 
     inner class MemberViewHolder(view: View) : RecyclerView.ViewHolder(view)

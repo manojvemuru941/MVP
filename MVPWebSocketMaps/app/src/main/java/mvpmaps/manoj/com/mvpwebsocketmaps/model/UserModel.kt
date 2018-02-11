@@ -13,4 +13,6 @@ class UserModel {
     @SerializedName("message")
     var message:String? = null;
 
+    @SerializedName("family")
+    var familyModel:FamilyModel? = null
 }

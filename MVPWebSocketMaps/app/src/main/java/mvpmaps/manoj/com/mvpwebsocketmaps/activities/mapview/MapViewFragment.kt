@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.gms.maps.SupportMapFragment
 import dagger.android.support.AndroidSupportInjection
+import mvpmaps.manoj.com.mvpwebsocketmaps.TAG_FAMILY
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
 import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
 import javax.inject.Inject
 
@@ -28,14 +30,24 @@ class MapViewFragment : SupportMapFragment(),MapViewContract.View {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
-        var memberModel = this.arguments.getParcelable(TAG) as MemberModel
-        presenter.setMemberLocation(memberModel)
-        return super.onCreateView(inflater, container, savedInstanceState)
+        val view:View? = super.onCreateView(inflater, container, savedInstanceState)
+        presenter.onCreate(view!!, this.arguments!!)
+        return view
     }
 
     override fun onResume() {
         super.onResume()
+        presenter.onResume()
         getMapAsync(presenter)
+    }
 
+    override fun onPause() {
+        super.onPause()
+        presenter.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 }

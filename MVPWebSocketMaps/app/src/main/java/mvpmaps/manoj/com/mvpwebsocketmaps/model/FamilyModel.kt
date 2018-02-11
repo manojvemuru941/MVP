@@ -1,51 +1,44 @@
 package mvpmaps.manoj.com.mvpwebsocketmaps.model
 
-import android.graphics.Bitmap
-import android.os.Parcel
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import rx.Observable
+import rx.subjects.PublishSubject
+import kotlin.collections.ArrayList
 
 /**
- * Created by priyamanoj on 2018-02-07.
+ * Created by priyamanoj on 2018-02-09.
  */
-class FamilyModel() : Parcelable{
+
+class FamilyModel : DataUpdateModel.FamilyDataUpdateModel {
+
+    private val familyModelUpdateSubject = PublishSubject.create<FamilyModel>()
 
     @SerializedName("id")
-    var id:String? = null
+    var id: String? = null
 
     @SerializedName("name")
-    var name:String? = null
+    var name: String? = null
 
     @SerializedName("membersCount")
-    var membersCount:Int? = null
+    var membersCount: Int = 0
 
     @SerializedName("members")
-    var members:ArrayList<MemberModel>? = null
+    var members:ArrayList<MemberModel> = ArrayList()
 
-    constructor(parcel: Parcel) : this() {
-        id = parcel.readString()
-        name = parcel.readString()
-        membersCount = parcel.readValue(Int::class.java.classLoader) as? Int
+    fun updateData(familyModel: FamilyModel) {
+        this.id = familyModel.id
+        this.name = familyModel.name
+        this.membersCount = familyModel.membersCount
+        this.members = familyModel.members
+
+        /*
+            this update the list of observers for the data update
+         */
+        familyModelUpdateSubject.onNext(familyModel)
     }
 
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
-        parcel.writeString(id)
-        parcel.writeString(name)
-        parcel.writeValue(membersCount)
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<FamilyModel> {
-        override fun createFromParcel(parcel: Parcel): FamilyModel {
-            return FamilyModel(parcel)
-        }
-
-        override fun newArray(size: Int): Array<FamilyModel?> {
-            return arrayOfNulls(size)
-        }
+    override fun observeUpdateFamilyModel(): Observable<FamilyModel> {
+        return familyModelUpdateSubject.asObservable()
     }
 
 }

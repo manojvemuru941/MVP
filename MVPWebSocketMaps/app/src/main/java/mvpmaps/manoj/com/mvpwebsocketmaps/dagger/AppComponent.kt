@@ -9,6 +9,7 @@ import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.NetworkModule
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.Service
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.WebSocket
 import mvpmaps.manoj.com.mvpwebsocketmaps.app.App
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
 import javax.inject.Singleton
 
 /**
@@ -21,6 +22,7 @@ import javax.inject.Singleton
         AppModule::class,
         Service::class,
         WebSocket::class,
+
         ActivityModule::class])
 
 interface AppComponent {

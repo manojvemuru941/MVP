@@ -9,6 +9,7 @@ import mvpmaps.manoj.com.mvpwebsocketmaps.BuildConfig
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.NetworkModule
 import mvpmaps.manoj.com.mvpwebsocketmaps.NetworkService.WebSocket
 import mvpmaps.manoj.com.mvpwebsocketmaps.dagger.DaggerAppComponent
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.FamilyModel
 import java.io.File
 import javax.inject.Inject
 

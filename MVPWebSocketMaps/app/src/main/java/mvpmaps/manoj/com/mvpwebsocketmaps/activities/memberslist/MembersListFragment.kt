@@ -15,8 +15,10 @@ import android.widget.LinearLayout
 import android.support.v7.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.memberlist_fragment.view.*
 import android.support.v7.widget.DefaultItemAnimator
-
-
+import mvpmaps.manoj.com.mvpwebsocketmaps.dagger.DaggerAppComponent
+import mvpmaps.manoj.com.mvpwebsocketmaps.model.MemberModel
+import rx.android.schedulers.AndroidSchedulers
+import rx.schedulers.Schedulers
 
 
 /**
@@ -39,13 +41,22 @@ class MembersListFragment : Fragment(), MembersListContract.View {
     override fun onCreateView(inflater: LayoutInflater?, @Nullable container: ViewGroup?, @Nullable savedInstanceState: Bundle?): View? {
         var view:View = inflater!!.inflate(R.layout.memberlist_fragment,
                 container, false)
-        val mLayoutManager = LinearLayoutManager(context)
-        view.member_list_recycler.layoutManager = mLayoutManager
-        view.member_list_recycler.itemAnimator = DefaultItemAnimator()
-        view.member_list_recycler.adapter = presenter.getListAdapter()
-        (view.member_list_recycler.adapter as MemberListAdapter).getPositionClicks().subscribe {
-            presenter.onItemClickListner(it)
-        }
+        presenter.onCreate(view, Bundle())
         return view;
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        presenter.onPause()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.onDestroy()
     }
 }
